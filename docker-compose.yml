@@ -1,0 +1,9 @@
+version: '3.2'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongodb-ts
+    restart: always
+    ports:
+      - "27017:27017"
