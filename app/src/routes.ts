@@ -1,14 +1,14 @@
 import { Router } from "express";
-import UserController from "./controllers/UserControler";
-import LoginController from "./controllers/LoginController";
+import { index, show, store, update, destroy } from "./controllers/UserControler";
+import LoginController from "./controllers/AuthenticationController";
 
 const routes = Router()
 
-routes.get('/users', UserController.index);
-routes.post('/user', UserController.store);
-routes.get('/user/:id', UserController.show);
-routes.put('/user/:id', UserController.update);
-routes.delete('/user/:id', UserController.destroy);
+routes.get('/users', index);
+routes.post('/user', store);
+routes.get('/user/:id', show);
+routes.put('/user/:id', update);
+routes.delete('/user/:id', destroy);
 
 routes.post('/login', LoginController.login);
 routes.post('/login', LoginController.logout);

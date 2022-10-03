@@ -1,14 +1,18 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 
-// 1. Create an interface representing a document in MongoDB.
-export default async function init(): Promise<any> {
-  const conc = await mongoose.connect('mongodb://localhost:27017/users')
-  .then((res) => {
-    console.log(`[DATABASE] Success connect`);
-  })
-  .catch((err) => {
-    console.log(`[DATABASE] An error has occurred ${err}`)
-  });
+class Database {
+  public db: Mongoose;
 
-  return mongoose
+  constructor() {
+    this.db = mongoose
+  }
+
+  public async init(): Promise<Mongoose> {
+    const conc = await this.db.connect('mongodb://localhost:27017/users');
+    console.log('[DATABASE] OK');
+
+    return this.db
+  }
 }
+
+export default Database

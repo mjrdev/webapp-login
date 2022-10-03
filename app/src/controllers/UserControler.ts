@@ -1,42 +1,20 @@
 import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
 
-import User from "../Model";
+import { createOne, findAll, findOne, updateOn, deleteOne  } from '../services/UserService';
 
-export default {
-    async index(req: Request, res: Response): Promise<any> {
+import { User } from "../Models/Model";
 
-        const user = await User.find();
-        
-        return res.json(user);
-    },
+export { showController as show } from './UserControllers/showController';
+export { indexController as index } from './UserControllers/indexController';
+export { storeController as store } from './UserControllers/storeController';
+export { updateController as update } from './UserControllers/updateController';
 
-    async show(req: Request, res: Response): Promise<any> {
-        
-        const user = await User.findById(req.params.id);
 
-        return res.json(user);
-    },
+export async function destroy(req: Request, res: Response): Promise<Response> {
+    
+  const user = await User.findByIdAndDelete(req.params.id);
 
-    async store(req: Request, res: Response): Promise<any> {
-        
-        req.body.password = bcrypt.hashSync(req.body.password, 10);
-        const user = await User.create(req.body);
-
-        return res.json(user);
-    },
-
-    async update(req: Request, res: Response): Promise<any> {
-        
-        const user = await User.findByIdAndUpdate(req.params.id, req.body);
-
-        return res.json(user);
-    },
-
-    async destroy(req: Request, res: Response): Promise<any> {
-        
-        const user = await User.findByIdAndDelete(req.params.id);
-
-        return res.json(user);
-    },
+  return res.status(204).json({
+    msg: 'deleted'
+  });
 }
