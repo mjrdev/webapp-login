@@ -13,7 +13,7 @@ export async function showController(req: Request, res: Response): Promise<Respo
   catch(err: any) {
 
     return res.status(400).json({
-      error: err.message
+      error: 'não foi possivel localizar o usuário'
     });
   }
 }

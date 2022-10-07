@@ -3,7 +3,7 @@ import routes from './src/routes';
 import Database from './src/database';
 import bodyParser from 'body-parser';
 
-import { Application } from 'express';
+import { Application, Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 
 class App {
   public express: Application;
@@ -21,6 +21,11 @@ class App {
     this.express.use(express.json())
     this.express.use(bodyParser.json());
     this.express.use(express.static(__dirname + '/public'))
+    /*
+    this.express.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
+      console.error(err)
+      res.status(500).send('Something broke!')
+    }) */
   }
 
   private database(): void {
@@ -34,6 +39,7 @@ class App {
 
   private listen(port: number): void {
     this.express.listen(port, function() { 
+      console.clear();
       console.log('[SERVER] Server ON');
     })
   }

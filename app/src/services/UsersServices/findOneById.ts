@@ -1,9 +1,13 @@
 import { IUser, User } from '../../Models/Model';
 import { removePasswordInUserData } from '../../Helpers/Passwords';
 
-export default async function findOne(id: any): Promise<any> {
+interface IFindUser {
+  username?: string, email?: string
+}
 
-    const user = await User.findById(id);
+export default async function findOne(id: string): Promise<any> {
+
+    const user = await User.findById(id)
   
     if(user) {
       
@@ -11,7 +15,5 @@ export default async function findOne(id: any): Promise<any> {
       return usersWithPassword;
     } else {
       throw Error('Not found user id');
-  
-      return
     }
   }

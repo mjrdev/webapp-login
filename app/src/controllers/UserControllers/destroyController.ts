@@ -1,19 +1,21 @@
 import { Request, Response } from "express";
 
-import { createOne } from '../../services/UserService';
+import { deleteOne } from '../../services/UserService';
 
-export async function storeController(req: Request, res: Response): Promise<Response> {
+export async function destroyController(req: Request, res: Response): Promise<Response> {
     
   try {
-    
-    const user = await createOne(req.body);
-    return res.json(user);
+    const user = await deleteOne(req.params.id)
+
+    return res.send({
+      message: 'usuário deletado com sucesso'
+    })
   }
   
-  catch (err) {
+  catch(err: any) {
 
     return res.status(400).json({
-      error: `An error has occurred: ${err}`
+      error: 'erro ao deletar usuário'
     });
   }
 }
